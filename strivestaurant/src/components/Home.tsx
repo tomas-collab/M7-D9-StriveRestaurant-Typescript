@@ -3,9 +3,33 @@ import dishes from '../data/menu.json'
 import { useState } from 'react'
 import DishComments from './DishComments'
 import upperName from '../helpers/lib'
+import { RouteComponentProps } from 'react-router-dom'
 
-const Home = ({ title }) => {
-  const [selected, setSelected] = useState(null)
+interface homeComponentProps{
+  title:string
+}
+
+interface selectedPasta{
+  id: number
+  name: string
+  image: string
+  category: string
+  label: string
+  price: string
+  description: string
+  comments: comment[]
+}
+interface comment {
+  id: number
+  rating: number
+  comment: string
+  author: string
+  date: string
+}
+type AllProps = RouteComponentProps & homeComponentProps
+
+const Home = ({ title }:AllProps) => {
+  const [selected, setSelected] = useState<selectedPasta | null>(null)
 
   return (
     <Container>
@@ -30,7 +54,7 @@ const Home = ({ title }) => {
             ))}
           </Carousel>
         </Col>
-        <DishComments selectedPasta={selected} />
+        <DishComments selectedPasta={selected}/>
       </Row>
     </Container>
   )
